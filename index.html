@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow">
   <title>foesthoughts</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Uncial+Antiqua&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     :root {
       --cream: #f2ece0;
@@ -47,9 +47,7 @@
       z-index: 0;
     }
 
-    /* =====================
-       CLOSED BOOK STATE
-    ===================== */
+    /* ===================== CLOSED BOOK ===================== */
     .closed-book {
       position: relative;
       z-index: 10;
@@ -58,308 +56,89 @@
       cursor: pointer;
       transition: transform 0.3s ease;
     }
-
     .closed-book:hover { transform: translateY(-4px); }
     .closed-book:hover .open-hint { opacity: 1; }
 
-    /* Book body (the closed block) */
-    .book-body {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+    .book-body { position: relative; width: 100%; height: 100%; }
 
-    /* Spine */
     .book-spine {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 32px;
-      height: 100%;
+      position: absolute; left: 0; top: 0; width: 32px; height: 100%;
       background: linear-gradient(to right, #1e1209, var(--cover-brown), #2e1e10);
       border-radius: 3px 0 0 3px;
       box-shadow: -4px 0 12px rgba(0,0,0,0.6), inset 2px 0 8px rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;
     }
 
-    .spine-title {
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.7rem;
-      font-style: italic;
-      letter-spacing: 0.2em;
-      color: var(--cover-gold-dim);
-      text-transform: lowercase;
-    }
+    .spine-title { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Cormorant Garamond', serif; font-size: 0.7rem; font-style: italic; letter-spacing: 0.2em; color: var(--cover-gold-dim); text-transform: lowercase; }
+    .spine-line { width: 1px; height: 40px; background: var(--cover-gold-dim); opacity: 0.4; margin: 8px 0; }
 
-    .spine-line {
-      width: 1px;
-      height: 40px;
-      background: var(--cover-gold-dim);
-      opacity: 0.4;
-      margin: 8px 0;
-    }
-
-    /* Front cover */
     .book-cover {
-      position: absolute;
-      left: 32px;
-      top: 0;
-      width: calc(100% - 32px);
-      height: 100%;
+      position: absolute; left: 32px; top: 0; width: calc(100% - 32px); height: 100%;
       background: linear-gradient(135deg, var(--cover-mid) 0%, var(--cover-brown) 40%, #2a1a0e 100%);
       border-radius: 0 4px 4px 0;
       box-shadow: 6px 6px 30px rgba(0,0,0,0.7), inset -2px 0 8px rgba(0,0,0,0.3);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem 2rem;
+      overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 2rem;
     }
 
-    /* Leather texture on cover */
     .book-cover::before {
-      content: '';
-      position: absolute;
-      inset: 0;
+      content: ''; position: absolute; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='lt'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.35' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23lt)' opacity='0.06'/%3E%3C/svg%3E");
       pointer-events: none;
     }
 
-    /* Gold border frame */
-    .cover-frame {
-      position: absolute;
-      inset: 14px;
-      border: 1px solid var(--cover-gold-dim);
-      opacity: 0.5;
-      pointer-events: none;
-    }
+    .cover-frame { position: absolute; inset: 14px; border: 1px solid var(--cover-gold-dim); opacity: 0.5; pointer-events: none; }
+    .cover-frame-inner { position: absolute; inset: 20px; border: 1px solid var(--cover-gold-dim); opacity: 0.25; pointer-events: none; }
 
-    .cover-frame-inner {
-      position: absolute;
-      inset: 20px;
-      border: 1px solid var(--cover-gold-dim);
-      opacity: 0.25;
-      pointer-events: none;
-    }
-
-    /* Corner ornaments */
-    .cover-corner {
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      opacity: 0.6;
-    }
+    .cover-corner { position: absolute; width: 24px; height: 24px; opacity: 0.6; }
     .cover-corner svg { width: 100%; height: 100%; }
     .cover-corner.tl { top: 22px; left: 22px; }
     .cover-corner.tr { top: 22px; right: 22px; transform: scaleX(-1); }
     .cover-corner.bl { bottom: 22px; left: 22px; transform: scaleY(-1); }
     .cover-corner.br { bottom: 22px; right: 22px; transform: scale(-1,-1); }
 
-    /* Cover content */
-    .cover-ornament-top {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      color: var(--cover-gold-dim);
-      opacity: 0.6;
-      letter-spacing: 0.3em;
-      margin-bottom: 1.2rem;
-    }
+    .cover-ornament-top { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--cover-gold-dim); opacity: 0.6; letter-spacing: 0.3em; margin-bottom: 1.2rem; }
+    .cover-rule { width: 60%; height: 1px; background: linear-gradient(to right, transparent, var(--cover-gold), transparent); margin-bottom: 1.8rem; }
+    .cover-title-text { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400; font-style: italic; color: var(--cover-gold); text-align: center; line-height: 1.2; letter-spacing: 0.05em; text-shadow: 0 2px 12px rgba(0,0,0,0.5); margin-bottom: 0.6rem; }
+    .cover-subtitle { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.25em; color: var(--cover-gold-dim); opacity: 0.7; text-transform: uppercase; margin-bottom: 1.8rem; }
+    .cover-rule-2 { width: 40%; height: 1px; background: linear-gradient(to right, transparent, var(--cover-gold-dim), transparent); margin-bottom: 1.2rem; }
+    .cover-year { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--cover-gold-dim); opacity: 0.5; }
 
-    .cover-rule {
-      width: 60%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--cover-gold), transparent);
-      margin-bottom: 1.8rem;
-    }
+    .pages-stack { position: absolute; right: -6px; top: 4px; width: 8px; height: calc(100% - 8px); background: repeating-linear-gradient(to bottom, #f0e8d8 0px, #f0e8d8 1px, #e0d8c8 2px, #e0d8c8 3px); border-radius: 0 2px 2px 0; box-shadow: 2px 0 6px rgba(0,0,0,0.3); }
 
-    .cover-title-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.4rem;
-      font-weight: 400;
-      font-style: italic;
-      color: var(--cover-gold);
-      text-align: center;
-      line-height: 1.2;
-      letter-spacing: 0.05em;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
-      margin-bottom: 0.6rem;
-    }
+    .open-hint { position: absolute; bottom: -2.2rem; left: 50%; transform: translateX(-50%); font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: #5a4e42; text-transform: uppercase; white-space: nowrap; opacity: 0; transition: opacity 0.4s ease; }
 
-    .cover-subtitle {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.25em;
-      color: var(--cover-gold-dim);
-      opacity: 0.7;
-      text-transform: uppercase;
-      margin-bottom: 1.8rem;
-    }
-
-    .cover-rule-2 {
-      width: 40%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--cover-gold-dim), transparent);
-      margin-bottom: 1.2rem;
-    }
-
-    .cover-year {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: var(--cover-gold-dim);
-      opacity: 0.5;
-    }
-
-    /* Pages stack on right edge */
-    .pages-stack {
-      position: absolute;
-      right: -6px;
-      top: 4px;
-      width: 8px;
-      height: calc(100% - 8px);
-      background: repeating-linear-gradient(
-        to bottom,
-        #f0e8d8 0px,
-        #f0e8d8 1px,
-        #e0d8c8 2px,
-        #e0d8c8 3px
-      );
-      border-radius: 0 2px 2px 0;
-      box-shadow: 2px 0 6px rgba(0,0,0,0.3);
-    }
-
-    .open-hint {
-      position: absolute;
-      bottom: -2.2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: #5a4e42;
-      text-transform: uppercase;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    /* =====================
-       OPEN BOOK STATE
-    ===================== */
-    .open-book-wrapper {
-      display: none;
-      position: relative;
-      z-index: 10;
-      flex-direction: column;
-      align-items: center;
-    }
-
+    /* ===================== OPEN BOOK ===================== */
+    .open-book-wrapper { display: none; position: relative; z-index: 10; flex-direction: column; align-items: center; }
     .open-book-wrapper.visible { display: flex; }
 
-    /* Opening animation */
     @keyframes bookOpen {
       0% { opacity: 0; transform: scaleX(0.15) scaleY(0.95); }
       60% { transform: scaleX(1.03) scaleY(1); }
       100% { opacity: 1; transform: scaleX(1) scaleY(1); }
     }
+    .book-open-anim { animation: bookOpen 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
 
-    .book-open-anim {
-      animation: bookOpen 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    }
-
-    .book-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: calc(var(--page-w) * 2 + 4px);
-      margin-bottom: 1rem;
-      padding: 0 0.25rem;
-    }
-
-    .book-title-open {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: #7a6e60;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
+    .book-bar { display: flex; align-items: center; justify-content: space-between; width: calc(var(--page-w) * 2 + 4px); margin-bottom: 1rem; padding: 0 0.25rem; }
+    .book-title-open { font-family: 'Inconsolata', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: #7a6e60; cursor: pointer; transition: color 0.3s ease; }
     .book-title-open:hover { color: var(--accent); }
-
-    .book-nav {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      display: flex;
-      gap: 1.5rem;
-    }
+    .book-nav { font-family: 'Inconsolata', monospace; font-size: 0.6rem; letter-spacing: 0.15em; display: flex; gap: 1.5rem; }
     .book-nav a { color: #7a6e60; text-decoration: none; cursor: pointer; transition: color 0.3s ease; }
     .book-nav a:hover, .book-nav a.active { color: var(--accent); }
 
-    .book {
-      position: relative;
-      width: calc(var(--page-w) * 2 + 4px);
-      height: var(--page-h);
-      perspective: 3000px;
-    }
+    .book { position: relative; width: calc(var(--page-w) * 2 + 4px); height: var(--page-h); perspective: 3000px; }
+    .book::after { content: ''; position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 4px; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.22), rgba(0,0,0,0.06), rgba(0,0,0,0.22)); z-index: 50; pointer-events: none; }
 
-    .book::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(to right, rgba(0,0,0,0.22), rgba(0,0,0,0.06), rgba(0,0,0,0.22));
-      z-index: 50;
-      pointer-events: none;
-    }
-
-    .page-spread {
-      position: absolute;
-      width: var(--page-w);
-      height: var(--page-h);
-      top: 0;
-      background: var(--cream);
-      overflow: hidden;
-    }
-
-    .page-spread::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 5;
-    }
-
+    .page-spread { position: absolute; width: var(--page-w); height: var(--page-h); top: 0; background: var(--cream); overflow: hidden; }
+    .page-spread::after { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 5; }
     .page-left { left: 0; border-radius: 3px 0 0 3px; box-shadow: -3px 4px 18px var(--shadow), inset -6px 0 16px rgba(0,0,0,0.04); }
     .page-right { left: var(--page-w); border-radius: 0 3px 3px 0; box-shadow: 3px 4px 18px var(--shadow), inset 6px 0 16px rgba(0,0,0,0.04); }
 
-    /* FLIP */
     .flip-out-right { position: absolute; left: var(--page-w); top: 0; width: var(--page-w); height: var(--page-h); background: var(--cream); overflow: hidden; transform-origin: left center; transform-style: preserve-3d; z-index: 60; backface-visibility: hidden; }
     .flip-out-left { position: absolute; left: 0; top: 0; width: var(--page-w); height: var(--page-h); background: var(--cream); overflow: hidden; transform-origin: right center; transform-style: preserve-3d; z-index: 60; backface-visibility: hidden; }
 
-    @keyframes flipOutRight {
-      0%   { transform: rotateY(0deg); box-shadow: none; }
-      40%  { box-shadow: -18px 0 35px rgba(0,0,0,0.25); }
-      100% { transform: rotateY(-180deg); box-shadow: none; }
-    }
-    @keyframes flipOutLeft {
-      0%   { transform: rotateY(0deg); box-shadow: none; }
-      40%  { box-shadow: 18px 0 35px rgba(0,0,0,0.25); }
-      100% { transform: rotateY(180deg); box-shadow: none; }
-    }
+    @keyframes flipOutRight { 0% { transform: rotateY(0deg); box-shadow: none; } 40% { box-shadow: -18px 0 35px rgba(0,0,0,0.25); } 100% { transform: rotateY(-180deg); box-shadow: none; } }
+    @keyframes flipOutLeft { 0% { transform: rotateY(0deg); box-shadow: none; } 40% { box-shadow: 18px 0 35px rgba(0,0,0,0.25); } 100% { transform: rotateY(180deg); box-shadow: none; } }
 
-    /* PAGE CONTENT */
     .page-content { position: relative; z-index: 2; padding: 2.5rem 2.2rem; height: 100%; display: flex; flex-direction: column; }
     .page-section { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.4rem; flex-shrink: 0; }
 
@@ -393,9 +172,10 @@
     .photo-grid-mini img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%) contrast(1.05); cursor: pointer; transition: filter 0.3s ease; display: block; }
     .photo-grid-mini img:hover { filter: grayscale(0%) contrast(1.08); }
 
+    /* LINES — space-between fills full page */
     .lines-page-content { position: relative; z-index: 2; padding: 2.5rem 2.2rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
     .lines-label { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; }
-    .lines-label-ghost { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; opacity: 0; pointer-events: none; }
+    .lines-label-ghost { font-family: 'Inconsolata', monospace; font-size: 0.55rem; opacity: 0; pointer-events: none; }
     .line-item { font-size: 0.92rem; font-weight: 300; font-style: italic; line-height: 1.45; color: var(--ink); opacity: 0.8; padding-left: 1rem; border-left: 1px solid var(--pale); transition: opacity 0.3s ease, border-left-color 0.3s ease; }
     .line-item:hover { opacity: 1; border-left-color: var(--accent); }
 
@@ -429,7 +209,6 @@
     <img id="lightbox-img" src="" alt="" />
   </div>
 
-  <!-- CLOSED BOOK -->
   <div class="closed-book" id="closed-book" onclick="openBook()">
     <div class="book-body">
       <div class="book-spine">
@@ -440,33 +219,10 @@
       <div class="book-cover">
         <div class="cover-frame"></div>
         <div class="cover-frame-inner"></div>
-
-        <!-- Corner ornaments -->
-        <div class="cover-corner tl">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
-            <circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="cover-corner tr">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
-            <circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="cover-corner bl">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
-            <circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="cover-corner br">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
-            <circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/>
-          </svg>
-        </div>
-
+        <div class="cover-corner tl"><svg viewBox="0 0 24 24" fill="none"><path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/><circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/></svg></div>
+        <div class="cover-corner tr"><svg viewBox="0 0 24 24" fill="none"><path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/><circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/></svg></div>
+        <div class="cover-corner bl"><svg viewBox="0 0 24 24" fill="none"><path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/><circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/></svg></div>
+        <div class="cover-corner br"><svg viewBox="0 0 24 24" fill="none"><path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/><circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/></svg></div>
         <div class="cover-ornament-top">❧</div>
         <div class="cover-rule"></div>
         <div class="cover-title-text">foesthoughts</div>
@@ -479,7 +235,6 @@
     <div class="open-hint">open</div>
   </div>
 
-  <!-- OPEN BOOK -->
   <div class="open-book-wrapper" id="open-book">
     <div class="book-bar book-open-anim">
       <span class="book-title-open" id="book-title-link">foesthoughts</span>
@@ -489,12 +244,10 @@
         <a id="nav-lines">lines</a>
       </nav>
     </div>
-
     <div class="book book-open-anim" id="book">
       <div class="page-spread page-left" id="page-left"></div>
       <div class="page-spread page-right" id="page-right"></div>
     </div>
-
     <div class="book-arrows book-open-anim">
       <button class="arrow-btn" id="btn-prev">← prev</button>
       <span class="spread-indicator" id="spread-indicator"></span>
@@ -503,16 +256,35 @@
   </div>
 
   <script>
+    // =====================================================================
+    // DATA — EDIT ONLY THIS SECTION TO ADD CONTENT
+    // =====================================================================
+
     const entries = [
-      { id: 0, date: 'may 2026', title: 'on being lived', photo: null,
-        body: 'I have been lived for awhile. Self-aware enough to know that is what I was doing — the panic, the anxiety, watching myself from the outside and realizing I wasn\'t in it. Then I decided to live, and all that panic turned into something else entirely.' },
-      { id: 1, date: 'feb 2026', title: 'what she gave me', photo: null,
-        body: 'She gave me my joy back. How it feels to be there, and how it feels to not — so I could understand it. I\'ve always been running from feeling it. I understand it now and it hurts because I know the truth now.' },
-      { id: 2, date: 'jan 2026', title: 'the path being paved', photo: null,
-        body: 'Two paths never meant to cross but crossed they did. One path already made, other still being paved. The path being paved had to go its separate way to build itself. And maybe one day the paths will cross again and both head the same way.' }
+      // To add a new entry, copy the block below and fill it in.
+      // Set photo to null if no photo, or 'photos/yourfile.jpg' if you have one.
+      {
+        date: 'may 2026',
+        title: 'on being lived',
+        photo: null,
+        body: 'I have been lived for awhile. Self-aware enough to know that is what I was doing — the panic, the anxiety, watching myself from the outside and realizing I wasn\'t in it. Then I decided to live, and all that panic turned into something else entirely.'
+      },
+      {
+        date: 'feb 2026',
+        title: 'what she gave me',
+        photo: null,
+        body: 'She gave me my joy back. How it feels to be there, and how it feels to not — so I could understand it. I\'ve always been running from feeling it. I understand it now and it hurts because I know the truth now.'
+      },
+      {
+        date: 'jan 2026',
+        title: 'the path being paved',
+        photo: null,
+        body: 'Two paths never meant to cross but crossed they did. One path already made, other still being paved. The path being paved had to go its separate way to build itself. And maybe one day the paths will cross again and both head the same way.'
+      }
     ];
 
     const lines = [
+      // Add new lines here — the book automatically adds more pages as needed.
       'she broke me in all the right places.',
       'I came from a small stream and decided to become a waterfall.',
       'most people are plagiarizing their lives nowadays.',
@@ -527,64 +299,105 @@
       'quit trying to turn something off that deserves to be on.'
     ];
 
-    const photos = [null, null, null, null, null, null, null, null];
+    const photos = [
+      // Add photos here — grid automatically expands as you add more.
+      // Format: { src: 'photos/yourfile.jpg', caption: 'champaign — may 2026' }
+      // Leave as null for placeholder squares.
+      null, null, null, null,
+      null, null, null, null
+    ];
 
-    const spreads = [];
-    spreads.push({ section: 'cover' });
-    spreads.push({ section: 'thoughts' });
-    entries.forEach((e, i) => spreads.push({ section: 'thoughts', entryIndex: i }));
-    spreads.push({ section: 'photos' });
-    spreads.push({ section: 'lines' });
+    // =====================================================================
+    // SPREAD BUILDER — automatic, no need to edit below
+    // =====================================================================
+
+    const LINES_PER_PAGE = 6;
+    const PHOTOS_PER_SPREAD = 8; // 4 per page
+
+    function buildSpreads() {
+      const s = [];
+
+      // Cover
+      s.push({ type: 'cover' });
+
+      // Thoughts index (only if entries exist)
+      if (entries.length > 0) {
+        s.push({ type: 'thoughts-index' });
+        entries.forEach((e, i) => s.push({ type: 'entry', entryIndex: i }));
+      }
+
+      // Photos — auto-paginate every 8 photos
+      if (photos.length > 0) {
+        for (let i = 0; i < photos.length; i += PHOTOS_PER_SPREAD) {
+          s.push({ type: 'photos', photoStart: i });
+        }
+      }
+
+      // Lines — auto-paginate every 12 lines (6 per page)
+      if (lines.length > 0) {
+        const linesPerSpread = LINES_PER_PAGE * 2;
+        for (let i = 0; i < lines.length; i += linesPerSpread) {
+          s.push({ type: 'lines', lineStart: i });
+        }
+      }
+
+      return s;
+    }
+
+    // =====================================================================
+    // RENDER
+    // =====================================================================
 
     function renderLeft(i) {
       const s = spreads[i];
-      if (s.section === 'cover') return coverLeft();
-      if (s.section === 'thoughts' && s.entryIndex === undefined) return thoughtsIndex();
-      if (s.section === 'thoughts' && s.entryIndex !== undefined) return entryPage(entries[s.entryIndex]);
-      if (s.section === 'photos') return photosPage(photos.slice(0,4));
-      if (s.section === 'lines') return linesPage(lines.slice(0,6), true);
+      if (s.type === 'cover') return coverLeft();
+      if (s.type === 'thoughts-index') return thoughtsIndex();
+      if (s.type === 'entry') return entryPage(entries[s.entryIndex]);
+      if (s.type === 'photos') return photosPage(photos.slice(s.photoStart, s.photoStart + 4), s.photoStart === 0);
+      if (s.type === 'lines') return linesPage(lines.slice(s.lineStart, s.lineStart + LINES_PER_PAGE), true);
       return '';
     }
 
     function renderRight(i) {
       const s = spreads[i];
-      if (s.section === 'cover') return coverRight();
-      if (s.section === 'thoughts' && s.entryIndex === undefined) return quietRight('turn the page →');
-      if (s.section === 'thoughts' && s.entryIndex !== undefined) return quietRight('');
-      if (s.section === 'photos') return photosPage(photos.slice(4,8));
-      if (s.section === 'lines') return linesPage(lines.slice(6,12), false);
+      if (s.type === 'cover') return coverRight();
+      if (s.type === 'thoughts-index') return quietRight('turn the page →');
+      if (s.type === 'entry') return quietRight('');
+      if (s.type === 'photos') return photosPage(photos.slice(s.photoStart + 4, s.photoStart + 8), false);
+      if (s.type === 'lines') return linesPage(lines.slice(s.lineStart + LINES_PER_PAGE, s.lineStart + LINES_PER_PAGE * 2), false);
       return '';
     }
 
     function coverLeft() {
+      const sections = [];
+      if (entries.length) sections.push({ num: 'i.', name: 'thoughts', type: 'writing', target: 'thoughts' });
+      if (photos.length) sections.push({ num: 'ii.', name: 'photos', type: 'images', target: 'photos' });
+      if (lines.length) sections.push({ num: 'iii.', name: 'lines', type: 'fragments', target: 'lines' });
+
       return `<div class="page-content">
         <div class="cover-title-inner">live, don't<br>be lived.</div>
         <div class="cover-sub">a stream of consciousness<br>finding a place to land.</div>
         <div class="cover-divider"></div>
-        <div class="toc-item" data-action="section" data-target="thoughts">
-          <span class="toc-num">i.</span><span class="toc-name">thoughts</span><span class="toc-dots"></span><span class="toc-type">writing</span>
-        </div>
-        <div class="toc-item" data-action="section" data-target="photos">
-          <span class="toc-num">ii.</span><span class="toc-name">photos</span><span class="toc-dots"></span><span class="toc-type">images</span>
-        </div>
-        <div class="toc-item" data-action="section" data-target="lines">
-          <span class="toc-num">iii.</span><span class="toc-name">lines</span><span class="toc-dots"></span><span class="toc-type">fragments</span>
-        </div>
+        ${sections.map(s => `
+          <div class="toc-item" data-action="section" data-target="${s.target}">
+            <span class="toc-num">${s.num}</span><span class="toc-name">${s.name}</span><span class="toc-dots"></span><span class="toc-type">${s.type}</span>
+          </div>`).join('')}
         <div class="cover-mark">always becoming</div>
       </div>`;
     }
 
     function coverRight() {
+      const preview = lines.slice(0, Math.min(5, lines.length));
       return `<div class="page-content" style="justify-content:center;">
-        ${lines.slice(0,5).map(l => `<div class="cover-right-line">${l}</div>`).join('')}
+        ${preview.map(l => `<div class="cover-right-line">${l}</div>`).join('')}
       </div>`;
     }
 
     function thoughtsIndex() {
       return `<div class="page-content">
         <div class="page-section">thoughts</div>
-        ${entries.map(e => `
-          <div class="entry-list-item" data-action="entry" data-target="${e.id}">
+        ${entries.map((e, i) => `
+          <div class="entry-list-item" data-action="entry" data-target="${i}">
             <span class="el-date">${e.date}</span>
             <span class="el-title">${e.title}</span>
             <span class="el-arrow">→</span>
@@ -606,9 +419,9 @@
       </div>`;
     }
 
-    function photosPage(photoSlice) {
+    function photosPage(photoSlice, showLabel) {
       return `<div class="page-content">
-        <div class="page-section">photos</div>
+        ${showLabel ? '<div class="page-section">photos</div>' : '<div class="page-section" style="opacity:0;pointer-events:none"> </div>'}
         <div class="photo-grid-mini">
           ${photoSlice.map(p => p
             ? `<img src="${p.src}" alt="" data-action="lightbox" data-src="${p.src}" />`
@@ -619,11 +432,9 @@
     }
 
     function linesPage(pageLines, showLabel) {
-      const labelHtml = showLabel
-        ? `<div class="lines-label">lines</div>`
-        : `<div class="lines-label-ghost">lines</div>`;
+      if (!pageLines.length) return quietRight('');
       return `<div class="lines-page-content">
-        ${labelHtml}
+        ${showLabel ? '<div class="lines-label">lines</div>' : '<div class="lines-label-ghost">—</div>'}
         ${pageLines.map(l => `<div class="line-item">${l}</div>`).join('')}
       </div>`;
     }
@@ -634,16 +445,14 @@
       </div>`;
     }
 
+    // =====================================================================
+    // ENGINE
+    // =====================================================================
+
+    let spreads = buildSpreads();
     let currentSpread = 0;
     let isAnimating = false;
     const book = document.getElementById('book');
-
-    function openBook() {
-      document.getElementById('closed-book').style.display = 'none';
-      const openEl = document.getElementById('open-book');
-      openEl.classList.add('visible');
-      paint(0);
-    }
 
     function paint(i) {
       document.getElementById('page-left').innerHTML = renderLeft(i);
@@ -667,13 +476,14 @@
     }
 
     function goToSection(section) {
-      const idx = spreads.findIndex(s => s.section === section && s.entryIndex === undefined);
+      const typeMap = { thoughts: 'thoughts-index', photos: 'photos', lines: 'lines' };
+      const idx = spreads.findIndex(s => s.type === typeMap[section]);
       if (idx !== -1 && idx !== currentSpread) animateTo(idx);
     }
 
     function goToEntry(entryIndex) {
-      const idx = 2 + entryIndex;
-      if (idx !== currentSpread) animateTo(idx);
+      const idx = spreads.findIndex(s => s.type === 'entry' && s.entryIndex === entryIndex);
+      if (idx !== -1 && idx !== currentSpread) animateTo(idx);
     }
 
     function animateTo(target) {
@@ -725,10 +535,16 @@
       document.getElementById('btn-prev').disabled = currentSpread === 0;
       document.getElementById('btn-next').disabled = currentSpread === spreads.length - 1;
       document.getElementById('spread-indicator').textContent = (currentSpread + 1) + ' / ' + spreads.length;
-      const sec = spreads[currentSpread].section;
-      ['thoughts','photos','lines'].forEach(s => {
-        document.getElementById('nav-' + s).classList.toggle('active', s === sec);
-      });
+      const sec = spreads[currentSpread].type;
+      document.getElementById('nav-thoughts').classList.toggle('active', sec === 'thoughts-index' || sec === 'entry');
+      document.getElementById('nav-photos').classList.toggle('active', sec === 'photos');
+      document.getElementById('nav-lines').classList.toggle('active', sec === 'lines');
+    }
+
+    function openBook() {
+      document.getElementById('closed-book').style.display = 'none';
+      document.getElementById('open-book').classList.add('visible');
+      paint(0);
     }
 
     document.getElementById('btn-prev').addEventListener('click', () => doFlip(-1));
