@@ -5,488 +5,756 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow">
   <title>foesthoughts</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Uncial+Antiqua&family=Inconsolata:wght@300;400&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --cream: #f5f0e8;
+      --cream: #f2ece0;
+      --cream-dark: #e8e0d0;
       --ink: #1a1a18;
       --muted: #8a8478;
       --accent: #4a6741;
-      --pale: #e8e2d6;
+      --pale: #ddd6c8;
+      --shadow: rgba(0,0,0,0.18);
+      --cover-brown: #3d2b1f;
+      --cover-mid: #5c3d2a;
+      --cover-gold: #c9a84c;
+      --cover-gold-dim: #8a6e32;
+      --page-w: 440px;
+      --page-h: 620px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
 
     body {
-      background-color: var(--cream);
+      background: #1e1a16;
       color: var(--ink);
       font-family: 'Cormorant Garamond', Georgia, serif;
       min-height: 100vh;
-      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
     }
 
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
       pointer-events: none;
-      z-index: 1000;
-      opacity: 0.4;
+      z-index: 0;
     }
 
-    header {
-      padding: 3rem 4rem 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      opacity: 0;
-      animation: fadeUp 1.2s ease forwards;
-      animation-delay: 0.2s;
-    }
-
-    .site-title {
-      font-family: 'Inconsolata', monospace;
-      font-weight: 300;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-    }
-
-    nav {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.7rem;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      display: flex;
-      gap: 2rem;
-    }
-
-    nav a { color: var(--muted); text-decoration: none; transition: color 0.3s ease; }
-    nav a:hover { color: var(--accent); }
-
-    .hero {
-      padding: 6rem 4rem 4rem;
-      max-width: 680px;
-      opacity: 0;
-      animation: fadeUp 1.2s ease forwards;
-      animation-delay: 0.5s;
-    }
-
-    .hero-line {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-sub {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.72rem;
-      font-weight: 300;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      line-height: 1.8;
-      max-width: 360px;
-    }
-
-    .divider {
-      margin: 3rem 4rem;
-      height: 1px;
-      background: linear-gradient(to right, var(--accent), transparent);
-      opacity: 0;
-      animation: fadeIn 1.5s ease forwards;
-      animation-delay: 0.9s;
-    }
-
-    .section-label {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: var(--accent);
-      text-transform: uppercase;
-      margin-bottom: 2.5rem;
-    }
-
-    /* Entries */
-    .entries {
-      padding: 0 4rem;
-      opacity: 0;
-      animation: fadeUp 1.2s ease forwards;
-      animation-delay: 1s;
-    }
-
-    .entry {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 0 2rem;
-      margin-bottom: 3.5rem;
-      padding-bottom: 3.5rem;
-      border-bottom: 1px solid var(--pale);
-    }
-
-    .entry:last-child { border-bottom: none; }
-
-    .entry-date {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      font-weight: 300;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      padding-top: 0.4rem;
-      line-height: 1.6;
-    }
-
-    .entry-photo {
-      width: 100%;
-      max-width: 520px;
-      height: 300px;
-      object-fit: cover;
-      margin-bottom: 1.5rem;
-      filter: grayscale(20%) contrast(1.05);
-      display: block;
+    /* =====================
+       CLOSED BOOK STATE
+    ===================== */
+    .closed-book {
+      position: relative;
+      z-index: 10;
+      width: calc(var(--page-w) + 32px);
+      height: var(--page-h);
       cursor: pointer;
-      transition: filter 0.4s ease;
+      transition: transform 0.3s ease;
     }
 
-    .entry-photo:hover { filter: grayscale(0%) contrast(1.08); }
+    .closed-book:hover { transform: translateY(-4px); }
+    .closed-book:hover .open-hint { opacity: 1; }
 
-    .entry-photo-placeholder {
+    /* Book body (the closed block) */
+    .book-body {
+      position: relative;
       width: 100%;
-      max-width: 520px;
-      height: 260px;
-      background: var(--pale);
-      margin-bottom: 1.5rem;
+      height: 100%;
+    }
+
+    /* Spine */
+    .book-spine {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 32px;
+      height: 100%;
+      background: linear-gradient(to right, #1e1209, var(--cover-brown), #2e1e10);
+      border-radius: 3px 0 0 3px;
+      box-shadow: -4px 0 12px rgba(0,0,0,0.6), inset 2px 0 8px rgba(0,0,0,0.4);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-
-    .entry-title {
-      font-size: 1.5rem;
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1.3;
-      margin-bottom: 0.6rem;
-    }
-
-    .entry-excerpt {
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* Photo gallery */
-    .photos-section {
-      padding: 0 4rem;
-      opacity: 0;
-      animation: fadeUp 1.2s ease forwards;
-      animation-delay: 1.1s;
-    }
-
-    .photo-grid {
-      columns: 3;
-      column-gap: 0.75rem;
-    }
-
-    .photo-grid-item {
-      break-inside: avoid;
-      margin-bottom: 0.75rem;
       overflow: hidden;
-      cursor: pointer;
     }
 
-    .photo-grid-item img {
-      width: 100%;
-      display: block;
-      filter: grayscale(15%) contrast(1.05);
-      transition: filter 0.4s ease, transform 0.5s ease;
-    }
-
-    .photo-grid-item:hover img {
-      filter: grayscale(0%) contrast(1.08);
-      transform: scale(1.03);
-    }
-
-    .photo-caption {
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      padding: 0.4rem 0 0.8rem;
+    .spine-title {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      letter-spacing: 0.2em;
+      color: var(--cover-gold-dim);
       text-transform: lowercase;
     }
 
-    /* Placeholders for the grid */
-    .ph {
-      break-inside: avoid;
-      margin-bottom: 0.75rem;
-      background: var(--pale);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.12em;
-      color: var(--muted);
-      text-transform: uppercase;
+    .spine-line {
+      width: 1px;
+      height: 40px;
+      background: var(--cover-gold-dim);
+      opacity: 0.4;
+      margin: 8px 0;
     }
-    .ph.tall { height: 300px; }
-    .ph.med  { height: 210px; }
-    .ph.short{ height: 155px; }
 
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(26,26,24,0.96);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .lightbox.active { display: flex; }
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 88vh;
-      object-fit: contain;
-      filter: grayscale(10%);
-    }
-    .lightbox-close {
+    /* Front cover */
+    .book-cover {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      cursor: pointer;
-      text-transform: uppercase;
-    }
-
-    /* Lines */
-    .lines-section {
-      padding: 0 4rem;
-      opacity: 0;
-      animation: fadeUp 1.2s ease forwards;
-      animation-delay: 1.2s;
-    }
-
-    .line-item {
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1.5;
-      color: var(--ink);
-      margin-bottom: 2rem;
-      max-width: 600px;
-      opacity: 0.85;
-      transition: opacity 0.3s ease, border-left-color 0.3s ease;
-      padding-left: 1.5rem;
-      border-left: 1px solid var(--pale);
-    }
-
-    .line-item:hover { opacity: 1; border-left-color: var(--accent); }
-
-    footer {
-      padding: 3rem 4rem;
-      margin-top: 4rem;
-      border-top: 1px solid var(--pale);
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--muted);
+      left: 32px;
+      top: 0;
+      width: calc(100% - 32px);
+      height: 100%;
+      background: linear-gradient(135deg, var(--cover-mid) 0%, var(--cover-brown) 40%, #2a1a0e 100%);
+      border-radius: 0 4px 4px 0;
+      box-shadow: 6px 6px 30px rgba(0,0,0,0.7), inset -2px 0 8px rgba(0,0,0,0.3);
+      overflow: hidden;
       display: flex;
-      justify-content: space-between;
-      opacity: 0;
-      animation: fadeIn 1.5s ease forwards;
-      animation-delay: 1.4s;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 2rem;
     }
 
-    .waterfall-mark {
-      position: fixed;
-      right: 3rem;
-      top: 50%;
-      transform: translateY(-50%);
-      writing-mode: vertical-rl;
-      font-family: 'Inconsolata', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      color: var(--pale);
-      text-transform: uppercase;
+    /* Leather texture on cover */
+    .book-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='lt'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.35' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23lt)' opacity='0.06'/%3E%3C/svg%3E");
       pointer-events: none;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    @media (max-width: 640px) {
-      header, .hero, .entries, .photos-section, .lines-section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .divider { margin-left: 1.5rem; margin-right: 1.5rem; }
-      .entry { grid-template-columns: 1fr; gap: 0.5rem; }
-      .photo-grid { columns: 2; }
-      .waterfall-mark { display: none; }
-      nav { gap: 1rem; }
+    /* Gold border frame */
+    .cover-frame {
+      position: absolute;
+      inset: 14px;
+      border: 1px solid var(--cover-gold-dim);
+      opacity: 0.5;
+      pointer-events: none;
     }
 
-    @media (max-width: 400px) {
-      .photo-grid { columns: 1; }
+    .cover-frame-inner {
+      position: absolute;
+      inset: 20px;
+      border: 1px solid var(--cover-gold-dim);
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    /* Corner ornaments */
+    .cover-corner {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      opacity: 0.6;
+    }
+    .cover-corner svg { width: 100%; height: 100%; }
+    .cover-corner.tl { top: 22px; left: 22px; }
+    .cover-corner.tr { top: 22px; right: 22px; transform: scaleX(-1); }
+    .cover-corner.bl { bottom: 22px; left: 22px; transform: scaleY(-1); }
+    .cover-corner.br { bottom: 22px; right: 22px; transform: scale(-1,-1); }
+
+    /* Cover content */
+    .cover-ornament-top {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--cover-gold-dim);
+      opacity: 0.6;
+      letter-spacing: 0.3em;
+      margin-bottom: 1.2rem;
+    }
+
+    .cover-rule {
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--cover-gold), transparent);
+      margin-bottom: 1.8rem;
+    }
+
+    .cover-title-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--cover-gold);
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+      margin-bottom: 0.6rem;
+    }
+
+    .cover-subtitle {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      color: var(--cover-gold-dim);
+      opacity: 0.7;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+    }
+
+    .cover-rule-2 {
+      width: 40%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--cover-gold-dim), transparent);
+      margin-bottom: 1.2rem;
+    }
+
+    .cover-year {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--cover-gold-dim);
+      opacity: 0.5;
+    }
+
+    /* Pages stack on right edge */
+    .pages-stack {
+      position: absolute;
+      right: -6px;
+      top: 4px;
+      width: 8px;
+      height: calc(100% - 8px);
+      background: repeating-linear-gradient(
+        to bottom,
+        #f0e8d8 0px,
+        #f0e8d8 1px,
+        #e0d8c8 2px,
+        #e0d8c8 3px
+      );
+      border-radius: 0 2px 2px 0;
+      box-shadow: 2px 0 6px rgba(0,0,0,0.3);
+    }
+
+    .open-hint {
+      position: absolute;
+      bottom: -2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: #5a4e42;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    /* =====================
+       OPEN BOOK STATE
+    ===================== */
+    .open-book-wrapper {
+      display: none;
+      position: relative;
+      z-index: 10;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .open-book-wrapper.visible { display: flex; }
+
+    /* Opening animation */
+    @keyframes bookOpen {
+      0% { opacity: 0; transform: scaleX(0.15) scaleY(0.95); }
+      60% { transform: scaleX(1.03) scaleY(1); }
+      100% { opacity: 1; transform: scaleX(1) scaleY(1); }
+    }
+
+    .book-open-anim {
+      animation: bookOpen 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    .book-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: calc(var(--page-w) * 2 + 4px);
+      margin-bottom: 1rem;
+      padding: 0 0.25rem;
+    }
+
+    .book-title-open {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: #7a6e60;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .book-title-open:hover { color: var(--accent); }
+
+    .book-nav {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .book-nav a { color: #7a6e60; text-decoration: none; cursor: pointer; transition: color 0.3s ease; }
+    .book-nav a:hover, .book-nav a.active { color: var(--accent); }
+
+    .book {
+      position: relative;
+      width: calc(var(--page-w) * 2 + 4px);
+      height: var(--page-h);
+      perspective: 3000px;
+    }
+
+    .book::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0,0,0,0.22), rgba(0,0,0,0.06), rgba(0,0,0,0.22));
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .page-spread {
+      position: absolute;
+      width: var(--page-w);
+      height: var(--page-h);
+      top: 0;
+      background: var(--cream);
+      overflow: hidden;
+    }
+
+    .page-spread::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .page-left { left: 0; border-radius: 3px 0 0 3px; box-shadow: -3px 4px 18px var(--shadow), inset -6px 0 16px rgba(0,0,0,0.04); }
+    .page-right { left: var(--page-w); border-radius: 0 3px 3px 0; box-shadow: 3px 4px 18px var(--shadow), inset 6px 0 16px rgba(0,0,0,0.04); }
+
+    /* FLIP */
+    .flip-out-right { position: absolute; left: var(--page-w); top: 0; width: var(--page-w); height: var(--page-h); background: var(--cream); overflow: hidden; transform-origin: left center; transform-style: preserve-3d; z-index: 60; backface-visibility: hidden; }
+    .flip-out-left { position: absolute; left: 0; top: 0; width: var(--page-w); height: var(--page-h); background: var(--cream); overflow: hidden; transform-origin: right center; transform-style: preserve-3d; z-index: 60; backface-visibility: hidden; }
+
+    @keyframes flipOutRight {
+      0%   { transform: rotateY(0deg); box-shadow: none; }
+      40%  { box-shadow: -18px 0 35px rgba(0,0,0,0.25); }
+      100% { transform: rotateY(-180deg); box-shadow: none; }
+    }
+    @keyframes flipOutLeft {
+      0%   { transform: rotateY(0deg); box-shadow: none; }
+      40%  { box-shadow: 18px 0 35px rgba(0,0,0,0.25); }
+      100% { transform: rotateY(180deg); box-shadow: none; }
+    }
+
+    /* PAGE CONTENT */
+    .page-content { position: relative; z-index: 2; padding: 2.5rem 2.2rem; height: 100%; display: flex; flex-direction: column; }
+    .page-section { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.4rem; flex-shrink: 0; }
+
+    .cover-title-inner { font-size: 2.5rem; font-weight: 300; font-style: italic; line-height: 1.15; margin-bottom: 1rem; flex-shrink: 0; }
+    .cover-sub { font-family: 'Inconsolata', monospace; font-size: 0.58rem; font-weight: 300; letter-spacing: 0.1em; color: var(--muted); line-height: 1.8; margin-bottom: 1.8rem; flex-shrink: 0; }
+    .cover-divider { height: 1px; background: linear-gradient(to right, var(--accent), transparent); margin-bottom: 1.6rem; flex-shrink: 0; }
+    .toc-item { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.9rem; cursor: pointer; opacity: 0.65; transition: opacity 0.3s ease; flex-shrink: 0; }
+    .toc-item:hover { opacity: 1; }
+    .toc-num { font-family: 'Inconsolata', monospace; font-size: 0.55rem; color: var(--accent); min-width: 18px; }
+    .toc-name { font-size: 1.05rem; font-weight: 300; font-style: italic; flex: 1; }
+    .toc-dots { flex: 1; border-bottom: 1px dotted var(--pale); margin-bottom: 3px; min-width: 20px; }
+    .toc-type { font-family: 'Inconsolata', monospace; font-size: 0.5rem; color: var(--muted); letter-spacing: 0.08em; }
+    .cover-mark { font-family: 'Inconsolata', monospace; font-size: 0.5rem; letter-spacing: 0.2em; color: var(--pale); text-transform: uppercase; margin-top: auto; flex-shrink: 0; }
+    .cover-right-line { font-size: 0.9rem; font-weight: 300; font-style: italic; color: var(--ink); opacity: 0.2; line-height: 2.1; padding-left: 0.75rem; border-left: 1px solid var(--pale); margin-bottom: 0.7rem; flex-shrink: 0; }
+
+    .entry-list-item { display: flex; align-items: baseline; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid var(--pale); cursor: pointer; opacity: 0.7; transition: opacity 0.3s ease; flex-shrink: 0; }
+    .entry-list-item:hover { opacity: 1; }
+    .el-date { font-family: 'Inconsolata', monospace; font-size: 0.55rem; color: var(--muted); min-width: 60px; letter-spacing: 0.04em; }
+    .el-title { font-size: 1.05rem; font-weight: 300; font-style: italic; flex: 1; }
+    .el-arrow { font-family: 'Inconsolata', monospace; font-size: 0.55rem; color: var(--pale); transition: color 0.3s ease; }
+    .entry-list-item:hover .el-arrow { color: var(--accent); }
+
+    .entry-date-label { font-family: 'Inconsolata', monospace; font-size: 0.55rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 0.5rem; flex-shrink: 0; }
+    .entry-title-large { font-size: 1.7rem; font-weight: 300; font-style: italic; line-height: 1.2; margin-bottom: 1.1rem; flex-shrink: 0; }
+    .entry-photo-placeholder { width: 100%; height: 130px; background: var(--pale); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-family: 'Inconsolata', monospace; font-size: 0.5rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; flex-shrink: 0; }
+    .entry-photo { width: 100%; height: 130px; object-fit: cover; margin-bottom: 1rem; filter: grayscale(20%) contrast(1.05); display: block; flex-shrink: 0; cursor: pointer; }
+    .entry-body-text { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.85; overflow: hidden; }
+
+    .photo-grid-mini { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.4rem; flex: 1; min-height: 0; }
+    .photo-grid-mini .ph { background: var(--pale); display: flex; align-items: center; justify-content: center; font-family: 'Inconsolata', monospace; font-size: 0.45rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; min-height: 0; }
+    .photo-grid-mini img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%) contrast(1.05); cursor: pointer; transition: filter 0.3s ease; display: block; }
+    .photo-grid-mini img:hover { filter: grayscale(0%) contrast(1.08); }
+
+    .lines-page-content { position: relative; z-index: 2; padding: 2.5rem 2.2rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+    .lines-label { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; }
+    .lines-label-ghost { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; opacity: 0; pointer-events: none; }
+    .line-item { font-size: 0.92rem; font-weight: 300; font-style: italic; line-height: 1.45; color: var(--ink); opacity: 0.8; padding-left: 1rem; border-left: 1px solid var(--pale); transition: opacity 0.3s ease, border-left-color 0.3s ease; }
+    .line-item:hover { opacity: 1; border-left-color: var(--accent); }
+
+    .book-arrows { display: flex; justify-content: space-between; align-items: center; width: calc(var(--page-w) * 2 + 4px); margin-top: 1.2rem; padding: 0 0.25rem; }
+    .arrow-btn { font-family: 'Inconsolata', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: #7a6e60; cursor: pointer; background: none; border: none; padding: 0.5rem 0; transition: color 0.3s ease; text-transform: uppercase; }
+    .arrow-btn:hover { color: var(--accent); }
+    .arrow-btn:disabled { opacity: 0.2; cursor: default; }
+    .spread-indicator { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.12em; color: #5a504a; }
+
+    .lightbox { display: none; position: fixed; inset: 0; background: rgba(20,18,15,0.97); z-index: 2000; align-items: center; justify-content: center; cursor: pointer; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; }
+    .lightbox-close { position: absolute; top: 2rem; right: 2rem; font-family: 'Inconsolata', monospace; font-size: 0.65rem; letter-spacing: 0.15em; color: #7a6e60; cursor: pointer; text-transform: uppercase; }
+
+    @media (max-width: 920px) { :root { --page-w: 320px; --page-h: 520px; } }
+    @media (max-width: 680px) {
+      :root { --page-w: 88vw; --page-h: 78vh; }
+      .closed-book { width: calc(var(--page-w) + 24px); }
+      .book { width: var(--page-w); }
+      .book::after { display: none; }
+      .book-bar, .book-arrows { width: var(--page-w); }
+      .page-right { display: none; }
+      .page-left { border-radius: 3px; }
     }
   </style>
 </head>
 <body>
 
-  <span class="waterfall-mark">always becoming</span>
-
   <div class="lightbox" id="lightbox">
-    <span class="lightbox-close" onclick="closeLightbox()">close</span>
+    <span class="lightbox-close" id="lightbox-close">close</span>
     <img id="lightbox-img" src="" alt="" />
   </div>
 
-  <header>
-    <span class="site-title">foesthoughts</span>
-    <nav>
-      <a href="#thoughts">thoughts</a>
-      <a href="#photos">photos</a>
-      <a href="#lines">lines</a>
-    </nav>
-  </header>
-
-  <section class="hero">
-    <p class="hero-line">live, don't be lived.</p>
-    <p class="hero-sub">a stream of consciousnesss finding a place to land.</p>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- THOUGHTS -->
-  <section class="entries" id="thoughts">
-    <p class="section-label">thoughts</p>
-
-    <article class="entry">
-      <div class="entry-date">may<br>2026</div>
-      <div>
-        <!--
-          TO ADD A PHOTO TO AN ENTRY:
-          Replace the placeholder div below with:
-          <img class="entry-photo" src="photos/your-image.jpg" alt="brief description" />
-        -->
-        <div class="entry-photo-placeholder">photo goes here</div>
-        <p class="entry-title">on being lived</p>
-        <p class="entry-excerpt">I have been lived for awhile. Self-aware enough to know that is what I was doing — the panic, the anxiety, watching myself from the outside and realizing I wasn't in it. Then I decided to live, and all that panic turned into something else entirely.</p>
+  <!-- CLOSED BOOK -->
+  <div class="closed-book" id="closed-book" onclick="openBook()">
+    <div class="book-body">
+      <div class="book-spine">
+        <div class="spine-line"></div>
+        <div class="spine-title">foesthoughts</div>
+        <div class="spine-line"></div>
       </div>
-    </article>
+      <div class="book-cover">
+        <div class="cover-frame"></div>
+        <div class="cover-frame-inner"></div>
 
-    <article class="entry">
-      <div class="entry-date">feb<br>2026</div>
-      <div>
-        <p class="entry-title">what she gave me</p>
-        <p class="entry-excerpt">She gave me my joy back. How it feels to be there, and how it feels to not — so I could understand it. I've always been running from feeling it. I understand it now and it hurts because I know the truth now.</p>
-      </div>
-    </article>
-
-    <article class="entry">
-      <div class="entry-date">jan<br>2026</div>
-      <div>
-        <div class="entry-photo-placeholder">photo goes here</div>
-        <p class="entry-title">the path being paved</p>
-        <p class="entry-excerpt">Two paths never meant to cross but crossed they did. One path already made, other still being paved. The path being paved had to go its separate way to build itself. And maybe one day the paths will cross again and both head the same way.</p>
-      </div>
-    </article>
-
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- PHOTOS -->
-  <section class="photos-section" id="photos">
-    <p class="section-label">photos</p>
-
-    <div class="photo-grid">
-      <!--
-        TO ADD PHOTOS:
-        Replace placeholder divs with blocks like this:
-
-        <div class="photo-grid-item">
-          <img src="photos/street-01.jpg" alt="" />
-          <p class="photo-caption">champaign, il — april 2026</p>
+        <!-- Corner ornaments -->
+        <div class="cover-corner tl">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
+            <circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="cover-corner tr">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
+            <circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="cover-corner bl">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
+            <circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="cover-corner br">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2 L10 2 M2 2 L2 10 M2 2 L8 8" stroke="#c9a84c" stroke-width="0.8" opacity="0.7"/>
+            <circle cx="2" cy="2" r="1.5" fill="#c9a84c" opacity="0.5"/>
+          </svg>
         </div>
 
-        Put your images in a folder called "photos" next to index.html in your repo.
-        The masonry grid handles the layout automatically.
-      -->
-      <div class="ph tall">street</div>
-      <div class="ph med">nature</div>
-      <div class="ph short">film</div>
-      <div class="ph med">europe</div>
-      <div class="ph tall">street</div>
-      <div class="ph short">nature</div>
-      <div class="ph short">film</div>
-      <div class="ph med">street</div>
-      <div class="ph tall">europe</div>
+        <div class="cover-ornament-top">❧</div>
+        <div class="cover-rule"></div>
+        <div class="cover-title-text">foesthoughts</div>
+        <div class="cover-subtitle">always becoming</div>
+        <div class="cover-rule-2"></div>
+        <div class="cover-year">mmxxvi</div>
+      </div>
+      <div class="pages-stack"></div>
     </div>
-  </section>
+    <div class="open-hint">open</div>
+  </div>
 
-  <div class="divider"></div>
+  <!-- OPEN BOOK -->
+  <div class="open-book-wrapper" id="open-book">
+    <div class="book-bar book-open-anim">
+      <span class="book-title-open" id="book-title-link">foesthoughts</span>
+      <nav class="book-nav">
+        <a id="nav-thoughts">thoughts</a>
+        <a id="nav-photos">photos</a>
+        <a id="nav-lines">lines</a>
+      </nav>
+    </div>
 
-  <!-- LINES -->
-  <section class="lines-section" id="lines">
-    <p class="section-label">lines</p>
+    <div class="book book-open-anim" id="book">
+      <div class="page-spread page-left" id="page-left"></div>
+      <div class="page-spread page-right" id="page-right"></div>
+    </div>
 
-    <p class="line-item">she broke me in all the right places.</p>
-    <p class="line-item">I came from a small stream and decided to become a waterfall.</p>
-    <p class="line-item">most people are plagiarizing their lives nowadays.</p>
-    <p class="line-item">what time takes, it gives back.</p>
-    <p class="line-item">I'm not a writer, I'm just the writer of my life.</p>
-    <p class="line-item">she was the one to show me what the one is like. something I cannot have.</p>
-    <p class="line-item">I'll keep pruning until I become the flower I want — even then, beautiful flowers still need pruning.</p>
-    <p class="line-item">writing is expressing love.</p>
-    <p class="line-item">live, don't be lived.</p>
-    <p class="line-item">I just need to let it be what it was and let it turn into a scar. A beautiful scar.</p>
-    <p class="line-item">I’ve always been so terrified of losing my mind again, but in reality I’m finally finding it again.</p>
-  
-  </section>
-
-  <footer>
-    <span>foesthoughts.com</span>
-    <span>always becoming</span>
-  </footer>
+    <div class="book-arrows book-open-anim">
+      <button class="arrow-btn" id="btn-prev">← prev</button>
+      <span class="spread-indicator" id="spread-indicator"></span>
+      <button class="arrow-btn" id="btn-next">next →</button>
+    </div>
+  </div>
 
   <script>
-    document.querySelectorAll('.photo-grid-item img, .entry-photo').forEach(img => {
-      img.addEventListener('click', () => {
-        document.getElementById('lightbox-img').src = img.src;
-        document.getElementById('lightbox').classList.add('active');
+    const entries = [
+      { id: 0, date: 'may 2026', title: 'on being lived', photo: null,
+        body: 'I have been lived for awhile. Self-aware enough to know that is what I was doing — the panic, the anxiety, watching myself from the outside and realizing I wasn\'t in it. Then I decided to live, and all that panic turned into something else entirely.' },
+      { id: 1, date: 'feb 2026', title: 'what she gave me', photo: null,
+        body: 'She gave me my joy back. How it feels to be there, and how it feels to not — so I could understand it. I\'ve always been running from feeling it. I understand it now and it hurts because I know the truth now.' },
+      { id: 2, date: 'jan 2026', title: 'the path being paved', photo: null,
+        body: 'Two paths never meant to cross but crossed they did. One path already made, other still being paved. The path being paved had to go its separate way to build itself. And maybe one day the paths will cross again and both head the same way.' }
+    ];
+
+    const lines = [
+      'she broke me in all the right places.',
+      'I came from a small stream and decided to become a waterfall.',
+      'most people are plagiarizing their lives nowadays.',
+      'what time takes, it gives back.',
+      'I\'m not a writer, I\'m just the writer of my life.',
+      'she was the one to show me what the one is like. something I cannot have.',
+      'I\'ll keep pruning until I become the flower I want — even then, beautiful flowers still need pruning.',
+      'writing is expressing love.',
+      'live, don\'t be lived.',
+      'I just need to let it be what it was and let it turn into a scar. A beautiful scar.',
+      'I\'ve always been so terrified of losing my mind again, but in reality I\'m finally finding it again.',
+      'quit trying to turn something off that deserves to be on.'
+    ];
+
+    const photos = [null, null, null, null, null, null, null, null];
+
+    const spreads = [];
+    spreads.push({ section: 'cover' });
+    spreads.push({ section: 'thoughts' });
+    entries.forEach((e, i) => spreads.push({ section: 'thoughts', entryIndex: i }));
+    spreads.push({ section: 'photos' });
+    spreads.push({ section: 'lines' });
+
+    function renderLeft(i) {
+      const s = spreads[i];
+      if (s.section === 'cover') return coverLeft();
+      if (s.section === 'thoughts' && s.entryIndex === undefined) return thoughtsIndex();
+      if (s.section === 'thoughts' && s.entryIndex !== undefined) return entryPage(entries[s.entryIndex]);
+      if (s.section === 'photos') return photosPage(photos.slice(0,4));
+      if (s.section === 'lines') return linesPage(lines.slice(0,6), true);
+      return '';
+    }
+
+    function renderRight(i) {
+      const s = spreads[i];
+      if (s.section === 'cover') return coverRight();
+      if (s.section === 'thoughts' && s.entryIndex === undefined) return quietRight('turn the page →');
+      if (s.section === 'thoughts' && s.entryIndex !== undefined) return quietRight('');
+      if (s.section === 'photos') return photosPage(photos.slice(4,8));
+      if (s.section === 'lines') return linesPage(lines.slice(6,12), false);
+      return '';
+    }
+
+    function coverLeft() {
+      return `<div class="page-content">
+        <div class="cover-title-inner">live, don't<br>be lived.</div>
+        <div class="cover-sub">a stream of consciousness<br>finding a place to land.</div>
+        <div class="cover-divider"></div>
+        <div class="toc-item" data-action="section" data-target="thoughts">
+          <span class="toc-num">i.</span><span class="toc-name">thoughts</span><span class="toc-dots"></span><span class="toc-type">writing</span>
+        </div>
+        <div class="toc-item" data-action="section" data-target="photos">
+          <span class="toc-num">ii.</span><span class="toc-name">photos</span><span class="toc-dots"></span><span class="toc-type">images</span>
+        </div>
+        <div class="toc-item" data-action="section" data-target="lines">
+          <span class="toc-num">iii.</span><span class="toc-name">lines</span><span class="toc-dots"></span><span class="toc-type">fragments</span>
+        </div>
+        <div class="cover-mark">always becoming</div>
+      </div>`;
+    }
+
+    function coverRight() {
+      return `<div class="page-content" style="justify-content:center;">
+        ${lines.slice(0,5).map(l => `<div class="cover-right-line">${l}</div>`).join('')}
+      </div>`;
+    }
+
+    function thoughtsIndex() {
+      return `<div class="page-content">
+        <div class="page-section">thoughts</div>
+        ${entries.map(e => `
+          <div class="entry-list-item" data-action="entry" data-target="${e.id}">
+            <span class="el-date">${e.date}</span>
+            <span class="el-title">${e.title}</span>
+            <span class="el-arrow">→</span>
+          </div>`).join('')}
+        <div class="cover-mark">foesthoughts.com</div>
+      </div>`;
+    }
+
+    function entryPage(entry) {
+      const photoHtml = entry.photo
+        ? `<img class="entry-photo" src="${entry.photo}" alt="" data-action="lightbox" data-src="${entry.photo}" />`
+        : `<div class="entry-photo-placeholder">photo</div>`;
+      return `<div class="page-content">
+        <div class="page-section">thoughts</div>
+        <div class="entry-date-label">${entry.date}</div>
+        <div class="entry-title-large">${entry.title}</div>
+        ${photoHtml}
+        <div class="entry-body-text">${entry.body}</div>
+      </div>`;
+    }
+
+    function photosPage(photoSlice) {
+      return `<div class="page-content">
+        <div class="page-section">photos</div>
+        <div class="photo-grid-mini">
+          ${photoSlice.map(p => p
+            ? `<img src="${p.src}" alt="" data-action="lightbox" data-src="${p.src}" />`
+            : `<div class="ph">—</div>`
+          ).join('')}
+        </div>
+      </div>`;
+    }
+
+    function linesPage(pageLines, showLabel) {
+      const labelHtml = showLabel
+        ? `<div class="lines-label">lines</div>`
+        : `<div class="lines-label-ghost">lines</div>`;
+      return `<div class="lines-page-content">
+        ${labelHtml}
+        ${pageLines.map(l => `<div class="line-item">${l}</div>`).join('')}
+      </div>`;
+    }
+
+    function quietRight(msg) {
+      return `<div class="page-content" style="justify-content:flex-end;">
+        <div style="font-family:'Inconsolata',monospace;font-size:0.5rem;letter-spacing:0.15em;color:var(--pale);text-transform:uppercase;">${msg}</div>
+      </div>`;
+    }
+
+    let currentSpread = 0;
+    let isAnimating = false;
+    const book = document.getElementById('book');
+
+    function openBook() {
+      document.getElementById('closed-book').style.display = 'none';
+      const openEl = document.getElementById('open-book');
+      openEl.classList.add('visible');
+      paint(0);
+    }
+
+    function paint(i) {
+      document.getElementById('page-left').innerHTML = renderLeft(i);
+      document.getElementById('page-right').innerHTML = renderRight(i);
+      bindClicks();
+      updateUI();
+    }
+
+    function bindClicks() {
+      document.querySelectorAll('[data-action]').forEach(el => {
+        el.addEventListener('click', handleDataAction);
       });
+    }
+
+    function handleDataAction(e) {
+      const el = e.currentTarget;
+      const action = el.dataset.action;
+      if (action === 'section') goToSection(el.dataset.target);
+      if (action === 'entry') goToEntry(parseInt(el.dataset.target));
+      if (action === 'lightbox') openLightbox(el.dataset.src);
+    }
+
+    function goToSection(section) {
+      const idx = spreads.findIndex(s => s.section === section && s.entryIndex === undefined);
+      if (idx !== -1 && idx !== currentSpread) animateTo(idx);
+    }
+
+    function goToEntry(entryIndex) {
+      const idx = 2 + entryIndex;
+      if (idx !== currentSpread) animateTo(idx);
+    }
+
+    function animateTo(target) {
+      if (isAnimating) return;
+      if (Math.abs(target - currentSpread) > 2) {
+        currentSpread = target;
+        paint(currentSpread);
+        return;
+      }
+      doFlip(target > currentSpread ? 1 : -1, target);
+    }
+
+    function doFlip(dir, targetIndex) {
+      if (isAnimating) return;
+      const next = targetIndex !== undefined ? targetIndex : currentSpread + dir;
+      if (next < 0 || next >= spreads.length) return;
+
+      isAnimating = true;
+      const DURATION = 600;
+      const overlay = document.createElement('div');
+
+      if (dir > 0) {
+        overlay.className = 'flip-out-right';
+        overlay.innerHTML = renderRight(currentSpread);
+        book.appendChild(overlay);
+        overlay.offsetHeight;
+        overlay.style.animation = `flipOutRight ${DURATION}ms cubic-bezier(0.645,0.045,0.355,1.000) forwards`;
+      } else {
+        overlay.className = 'flip-out-left';
+        overlay.innerHTML = renderLeft(currentSpread);
+        book.appendChild(overlay);
+        overlay.offsetHeight;
+        overlay.style.animation = `flipOutLeft ${DURATION}ms cubic-bezier(0.645,0.045,0.355,1.000) forwards`;
+      }
+
+      document.getElementById('page-left').innerHTML = renderLeft(next);
+      document.getElementById('page-right').innerHTML = renderRight(next);
+
+      setTimeout(() => {
+        overlay.remove();
+        currentSpread = next;
+        bindClicks();
+        updateUI();
+        isAnimating = false;
+      }, DURATION);
+    }
+
+    function updateUI() {
+      document.getElementById('btn-prev').disabled = currentSpread === 0;
+      document.getElementById('btn-next').disabled = currentSpread === spreads.length - 1;
+      document.getElementById('spread-indicator').textContent = (currentSpread + 1) + ' / ' + spreads.length;
+      const sec = spreads[currentSpread].section;
+      ['thoughts','photos','lines'].forEach(s => {
+        document.getElementById('nav-' + s).classList.toggle('active', s === sec);
+      });
+    }
+
+    document.getElementById('btn-prev').addEventListener('click', () => doFlip(-1));
+    document.getElementById('btn-next').addEventListener('click', () => doFlip(1));
+    document.getElementById('book-title-link').addEventListener('click', () => animateTo(0));
+    document.getElementById('nav-thoughts').addEventListener('click', () => goToSection('thoughts'));
+    document.getElementById('nav-photos').addEventListener('click', () => goToSection('photos'));
+    document.getElementById('nav-lines').addEventListener('click', () => goToSection('lines'));
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') doFlip(1);
+      if (e.key === 'ArrowLeft') doFlip(-1);
+      if (e.key === 'Escape') closeLightbox();
     });
+
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('active');
+    }
 
     function closeLightbox() {
       document.getElementById('lightbox').classList.remove('active');
     }
 
-    document.getElementById('lightbox').addEventListener('click', function(e) {
-      if (e.target === this) closeLightbox();
-    });
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeLightbox();
-    });
+    document.getElementById('lightbox').addEventListener('click', function(e) { if (e.target === this) closeLightbox(); });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
   </script>
 
 </body>
