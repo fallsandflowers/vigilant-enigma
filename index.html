@@ -47,14 +47,10 @@
       z-index: 0;
     }
 
-    /* ===================== CLOSED BOOK ===================== */
     .closed-book {
-      position: relative;
-      z-index: 10;
-      width: calc(var(--page-w) + 32px);
-      height: var(--page-h);
-      cursor: pointer;
-      transition: transform 0.3s ease;
+      position: relative; z-index: 10;
+      width: calc(var(--page-w) + 32px); height: var(--page-h);
+      cursor: pointer; transition: transform 0.3s ease;
     }
     .closed-book:hover { transform: translateY(-4px); }
     .closed-book:hover .open-hint { opacity: 1; }
@@ -68,7 +64,6 @@
       box-shadow: -4px 0 12px rgba(0,0,0,0.6), inset 2px 0 8px rgba(0,0,0,0.4);
       display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;
     }
-
     .spine-title { writing-mode: vertical-rl; transform: rotate(180deg); font-family: 'Cormorant Garamond', serif; font-size: 0.7rem; font-style: italic; letter-spacing: 0.2em; color: var(--cover-gold-dim); text-transform: lowercase; }
     .spine-line { width: 1px; height: 40px; background: var(--cover-gold-dim); opacity: 0.4; margin: 8px 0; }
 
@@ -79,7 +74,6 @@
       box-shadow: 6px 6px 30px rgba(0,0,0,0.7), inset -2px 0 8px rgba(0,0,0,0.3);
       overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 2rem;
     }
-
     .book-cover::before {
       content: ''; position: absolute; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='lt'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.35' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23lt)' opacity='0.06'/%3E%3C/svg%3E");
@@ -88,7 +82,6 @@
 
     .cover-frame { position: absolute; inset: 14px; border: 1px solid var(--cover-gold-dim); opacity: 0.5; pointer-events: none; }
     .cover-frame-inner { position: absolute; inset: 20px; border: 1px solid var(--cover-gold-dim); opacity: 0.25; pointer-events: none; }
-
     .cover-corner { position: absolute; width: 24px; height: 24px; opacity: 0.6; }
     .cover-corner svg { width: 100%; height: 100%; }
     .cover-corner.tl { top: 22px; left: 22px; }
@@ -102,12 +95,9 @@
     .cover-subtitle { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.25em; color: var(--cover-gold-dim); opacity: 0.7; text-transform: uppercase; margin-bottom: 1.8rem; }
     .cover-rule-2 { width: 40%; height: 1px; background: linear-gradient(to right, transparent, var(--cover-gold-dim), transparent); margin-bottom: 1.2rem; }
     .cover-year { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--cover-gold-dim); opacity: 0.5; }
-
     .pages-stack { position: absolute; right: -6px; top: 4px; width: 8px; height: calc(100% - 8px); background: repeating-linear-gradient(to bottom, #f0e8d8 0px, #f0e8d8 1px, #e0d8c8 2px, #e0d8c8 3px); border-radius: 0 2px 2px 0; box-shadow: 2px 0 6px rgba(0,0,0,0.3); }
-
     .open-hint { position: absolute; bottom: -2.2rem; left: 50%; transform: translateX(-50%); font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: #5a4e42; text-transform: uppercase; white-space: nowrap; opacity: 0; transition: opacity 0.4s ease; }
 
-    /* ===================== OPEN BOOK ===================== */
     .open-book-wrapper { display: none; position: relative; z-index: 10; flex-direction: column; align-items: center; }
     .open-book-wrapper.visible { display: flex; }
 
@@ -163,8 +153,6 @@
 
     .entry-date-label { font-family: 'Inconsolata', monospace; font-size: 0.55rem; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 0.5rem; flex-shrink: 0; }
     .entry-title-large { font-size: 1.7rem; font-weight: 300; font-style: italic; line-height: 1.2; margin-bottom: 1.1rem; flex-shrink: 0; }
-    .entry-photo-placeholder { width: 100%; height: 130px; background: var(--pale); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; font-family: 'Inconsolata', monospace; font-size: 0.5rem; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; flex-shrink: 0; }
-    .entry-photo { width: 100%; height: 130px; object-fit: cover; margin-bottom: 1rem; filter: grayscale(20%) contrast(1.05); display: block; flex-shrink: 0; cursor: pointer; }
     .entry-body-text { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.85; overflow: hidden; }
 
     .photo-grid-mini { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.4rem; flex: 1; min-height: 0; }
@@ -172,7 +160,6 @@
     .photo-grid-mini img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%) contrast(1.05); cursor: pointer; transition: filter 0.3s ease; display: block; }
     .photo-grid-mini img:hover { filter: grayscale(0%) contrast(1.08); }
 
-    /* LINES — space-between fills full page */
     .lines-page-content { position: relative; z-index: 2; padding: 2.5rem 2.2rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
     .lines-label { font-family: 'Inconsolata', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; }
     .lines-label-ghost { font-family: 'Inconsolata', monospace; font-size: 0.55rem; opacity: 0; pointer-events: none; }
@@ -209,7 +196,7 @@
     <img id="lightbox-img" src="" alt="" />
   </div>
 
-<div class="closed-book" id="closed-book">
+  <div class="closed-book" id="closed-book">
     <div class="book-body">
       <div class="book-spine">
         <div class="spine-line"></div>
@@ -261,8 +248,6 @@
     // =====================================================================
 
     const entries = [
-      // To add a new entry, copy the block below and fill it in.
-      // Set photo to null if no photo, or 'photos/yourfile.jpg' if you have one.
       {
         date: 'may 2026',
         title: 'on being lived',
@@ -282,26 +267,26 @@
         body: 'Two paths never meant to cross but crossed they did. One path already made, other still being paved. The path being paved had to go its separate way to build itself. And maybe one day the paths will cross again and both head the same way.'
       },
       {
-        date:'apr 2026',
+        date: 'apr 2026',
         title: 'the day you were born',
         photo: null,
         body: 'It only took one chapter for me to figure out the rest of my book. Thank you for your time. Enjoy the rest of the day. Wish I could celebrate you on this day. One day, I\'ll have to mostly forget about you. You helped show me who I am. You brought out the me I locked away. The real me. You were the key to that door I can never close again.'
       },
       {
-        date:  'mar 2026',
-        title:  'the ocean',
+        date: 'mar 2026',
+        title: 'the ocean',
         photo: null,
-        body:  'grief is like a repeating loop, you get swept up by the ocean, you\’re going under in a tide swell, then you get flung out and land on a beautiful beach. like how did I get here? you walk through the forest, you start to remember this forest and find things that remind you of everything and you walk out of the forest and you’re getting swept back into the ocean again. each time you drown, but eventually it gets easier. you\’ll be able to stay on the island and sit in the forest and enjoy it some day, and the water won\’t bother you as much. it\’ll just bring you a warm feeling, mixed with sadness, in the end.'
+        body: 'grief is like a repeating loop, you get swept up by the ocean, you\'re going under in a tide swell, then you get flung out and land on a beautiful beach. like how did I get here? you walk through the forest, you start to remember this forest and find things that remind you of everything and you walk out of the forest and you\'re getting swept back into the ocean again. each time you drown, but eventually it gets easier. you\'ll be able to stay on the island and sit in the forest and enjoy it some day, and the water won\'t bother you as much. it\'ll just bring you a warm feeling, mixed with sadness, in the end.'
       },
       {
-        date:  'apr 2026',
-        title:  'what is love',
-        photo:  null,
-        body:  'what is love? love is nurturing, love is unselfish, love is seeing someone, for who they truly are, who they truly are inside. love is their wants, needs, always come over your wants and needs. if you want to know what true love is, if you haven\'t felt it before, you will, when you have children. even if you are scared to realize what it truly is, love is wanting the best for someone, and love will only show it\'s true colors when that love you have inside has no where to go, it still stays inside you. that\'s how you know. love stays with you forever.'
+        date: 'apr 2026',
+        title: 'what is love',
+        photo: null,
+        body: 'what is love? love is nurturing, love is unselfish, love is seeing someone, for who they truly are, who they truly are inside. love is their wants, needs, always come over your wants and needs. if you want to know what true love is, if you haven\'t felt it before, you will, when you have children. even if you are scared to realize what it truly is, love is wanting the best for someone, and love will only show it\'s true colors when that love you have inside has no where to go, it still stays inside you. that\'s how you know. love stays with you forever.'
       }
     ];
+
     const lines = [
-      // Add new lines here — the book automatically adds more pages as needed.
       'she broke me in all the right places.',
       'I came from a small stream and decided to become a waterfall.',
       'most people are plagiarizing their lives nowadays.',
@@ -315,49 +300,47 @@
       'I\'ve always been so terrified of losing my mind again, but in reality I\'m finally finding it again.',
       'quit trying to turn something off that deserves to be on.',
       'It\'s not even the side-effects, it\'s just the fear of the side-effects.',
-      'she\'s still in your life, just differently than you wanted',
+      'she\'s still in your life, just differently than you wanted.',
       'Trying to explain to people how I felt about her is like trying to describe a color they\'ve never seen.',
       'I don\'t run anymore. I sit. With me.',
-      'I think that you think like I think, but I know I\'ll never know how you think.',
+      'I think that you think like I think, but I know I\'ll never know how you think.'
     ];
 
     const photos = [
-      // Add photos here — grid automatically expands as you add more.
-      // Format: { src: 'photos/yourfile.jpg', caption: 'champaign — may 2026' }
-      // Leave as null for placeholder squares.
       null, null, null, null,
       null, null, null, null
     ];
 
     // =====================================================================
-    // SPREAD BUILDER — automatic, no need to edit below
+    // SPREAD BUILDER — mobile-aware
     // =====================================================================
 
+    const PHOTOS_PER_SPREAD = 8;
+
+    // Detect mobile once at load
+    const isMobile = window.innerWidth <= 680;
+
+    // On mobile: 6 lines per spread (single page shown)
+    // On desktop: 12 lines per spread (6 left + 6 right)
     const LINES_PER_PAGE = 6;
-    const PHOTOS_PER_SPREAD = 8; // 4 per page
+    const linesPerSpread = isMobile ? LINES_PER_PAGE : LINES_PER_PAGE * 2;
 
     function buildSpreads() {
       const s = [];
-
-      // Cover
       s.push({ type: 'cover' });
 
-      // Thoughts index (only if entries exist)
       if (entries.length > 0) {
         s.push({ type: 'thoughts-index' });
         entries.forEach((e, i) => s.push({ type: 'entry', entryIndex: i }));
       }
 
-      // Photos — auto-paginate every 8 photos
       if (photos.length > 0) {
         for (let i = 0; i < photos.length; i += PHOTOS_PER_SPREAD) {
           s.push({ type: 'photos', photoStart: i });
         }
       }
 
-      // Lines — auto-paginate every 12 lines (6 per page)
       if (lines.length > 0) {
-        const linesPerSpread = LINES_PER_PAGE * 2;
         for (let i = 0; i < lines.length; i += linesPerSpread) {
           s.push({ type: 'lines', lineStart: i });
         }
@@ -386,7 +369,11 @@
       if (s.type === 'thoughts-index') return quietRight('turn the page →');
       if (s.type === 'entry') return quietRight('');
       if (s.type === 'photos') return photosPage(photos.slice(s.photoStart + 4, s.photoStart + 8), false);
-      if (s.type === 'lines') return linesPage(lines.slice(s.lineStart + LINES_PER_PAGE, s.lineStart + LINES_PER_PAGE * 2), false);
+      if (s.type === 'lines') {
+        // On mobile right page is hidden so don't bother rendering lines there
+        if (isMobile) return quietRight('');
+        return linesPage(lines.slice(s.lineStart + LINES_PER_PAGE, s.lineStart + LINES_PER_PAGE * 2), false);
+      }
       return '';
     }
 
@@ -395,7 +382,6 @@
       if (entries.length) sections.push({ num: 'i.', name: 'thoughts', type: 'writing', target: 'thoughts' });
       if (photos.length) sections.push({ num: 'ii.', name: 'photos', type: 'images', target: 'photos' });
       if (lines.length) sections.push({ num: 'iii.', name: 'lines', type: 'fragments', target: 'lines' });
-
       return `<div class="page-content">
         <div class="cover-title-inner">live, don't<br>be lived.</div>
         <div class="cover-sub">a stream of consciousness<br>finding a place to land.</div>
@@ -430,12 +416,13 @@
 
     function entryPage(entry) {
       return `<div class="page-content">
-    <div class="page-section">thoughts</div>
-    <div class="entry-date-label">${entry.date}</div>
-    <div class="entry-title-large">${entry.title}</div>
-    <div class="entry-body-text">${entry.body}</div>
-  </div>`;
-}
+        <div class="page-section">thoughts</div>
+        <div class="entry-date-label">${entry.date}</div>
+        <div class="entry-title-large">${entry.title}</div>
+        <div class="entry-body-text">${entry.body}</div>
+      </div>`;
+    }
+
     function photosPage(photoSlice, showLabel) {
       return `<div class="page-content">
         ${showLabel ? '<div class="page-section">photos</div>' : '<div class="page-section" style="opacity:0;pointer-events:none"> </div>'}
@@ -558,15 +545,16 @@
       document.getElementById('nav-lines').classList.toggle('active', sec === 'lines');
     }
 
-    function openBook() {  
+    function openBook() {
       document.getElementById('closed-book').style.display = 'none';
-  document.getElementById('open-book').classList.add('visible');
-  paint(0);
-}
-document.getElementById('closed-book').addEventListener('click', function(e) {
-  e.preventDefault();
-  openBook();
-});      
+      document.getElementById('open-book').classList.add('visible');
+      paint(0);
+    }
+
+    document.getElementById('closed-book').addEventListener('click', function(e) {
+      e.preventDefault();
+      openBook();
+    });
 
     document.getElementById('btn-prev').addEventListener('click', () => doFlip(-1));
     document.getElementById('btn-next').addEventListener('click', () => doFlip(1));
