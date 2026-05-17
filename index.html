@@ -209,7 +209,7 @@
     <img id="lightbox-img" src="" alt="" />
   </div>
 
-  <div class="closed-book" id="closed-book" onclick="openBook()">
+  <div class="closed-book" id="closed-book" onclick="openBook()" ontouchend="openBook()">
     <div class="book-body">
       <div class="book-spine">
         <div class="spine-line"></div>
@@ -286,9 +286,20 @@
         title: 'the day you were born',
         photo: null,
         body: 'It only took one chapter for me to figure out the rest of my book. Thank you for your time. Enjoy the rest of the day. Wish I could celebrate you on this day. One day, I\'ll have to mostly forget about you. You helped show me who I am. You brought out the me I locked away. The real me. You were the key to that door I can never close again.'
+      },
+      {
+        date:  'mar 2026',
+        title:  'the ocean',
+        photo: null,
+        body:  'grief is like a repeating loop, you get swept up by the ocean, you\’re going under in a tide swell, then you get flung out and land on a beautiful beach. like how did I get here? you walk through the forest, you start to remember this forest and find things that remind you of everything and you walk out of the forest and you’re getting swept back into the ocean again. each time you drown, but eventually it gets easier. you\’ll be able to stay on the island and sit in the forest and enjoy it some day, and the water won\’t bother you as much. it\’ll just bring you a warm feeling, mixed with sadness, in the end.'
+      },
+      {
+        date:  'apr 2026',
+        title:  'what is love',
+        photo:  null,
+        body:  'what is love? love is nurturing, love is unselfish, love is seeing someone, for who they truly are, who they truly are inside. love is their wants, needs, always come over your wants and needs. if you want to know what true love is, if you haven\'t felt it before, you will, when you have children. even if you are scared to realize what it truly is, love is wanting the best for someone, and love will only show it\'s true colors when that love you have inside has no where to go, it still stays inside you. that\'s how you know. love stays with you forever.'
       }
     ];
-
     const lines = [
       // Add new lines here — the book automatically adds more pages as needed.
       'she broke me in all the right places.',
@@ -304,6 +315,10 @@
       'I\'ve always been so terrified of losing my mind again, but in reality I\'m finally finding it again.',
       'quit trying to turn something off that deserves to be on.'
       'It\'s not even the side-effects, it\'s just the fear of the side-effects.'
+      'she\'s still in your life, just differently than you wanted'
+      'Trying to explain to people how I felt about her is like trying to describe a color they\'ve never seen.'
+      'I don\'t run anymore. I sit. With me.'
+      'I think that you think like I think, but I know I\'ll never know how you think.'
     ];
 
     const photos = [
