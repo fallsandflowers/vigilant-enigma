@@ -372,7 +372,7 @@
     .toc-name { font-size: 1.05rem; font-weight: 300; font-style: italic; flex: 1; }
     .toc-dots { flex: 1; border-bottom: 1px dotted var(--pale); margin-bottom: 3px; min-width: 20px; }
     .toc-type { font-family: 'Inconsolata', monospace; font-size: 0.5rem; color: var(--muted); letter-spacing: 0.08em; }
-    .cover-mark { font-family: 'Inconsolata', monospace; font-size: 0.5rem; letter-spacing: 0.2em; color: var(--pale); text-transform: uppercase; margin-top: auto; flex-shrink: 0; }
+    .cover-mark { font-family: 'Inconsolata', monospace; font-size: 0.5rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-top: auto; flex-shrink: 0; }
     .cover-right-line { font-size: 0.9rem; font-weight: 300; font-style: italic; color: var(--ink); opacity: 0.2; line-height: 2.1; padding-left: 0.75rem; border-left: 1px solid var(--pale); margin-bottom: 0.7rem; flex-shrink: 0; }
 
     .entry-list-item { display: flex; align-items: baseline; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid var(--pale); cursor: pointer; opacity: 0.7; transition: opacity 0.3s ease; flex-shrink: 0; }
@@ -630,7 +630,7 @@
 
     function quietRight(msg) {
       return `<div class="page-content" style="justify-content:flex-end;">
-        <div style="font-family:'Inconsolata',monospace;font-size:0.5rem;letter-spacing:0.15em;color:var(--pale);text-transform:uppercase;">${msg}</div>
+        <div style="font-family:'Inconsolata',monospace;font-size:0.5rem;letter-spacing:0.15em;color:var(--muted);text-transform:uppercase;">${msg}</div>
       </div>`;
     }
 
