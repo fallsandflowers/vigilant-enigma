@@ -407,18 +407,13 @@
     }
 
     function entryPage(entry) {
-      const photoHtml = entry.photo
-        ? `<img class="entry-photo" src="${entry.photo}" alt="" data-action="lightbox" data-src="${entry.photo}" />`
-        : `<div class="entry-photo-placeholder">photo</div>`;
       return `<div class="page-content">
-        <div class="page-section">thoughts</div>
-        <div class="entry-date-label">${entry.date}</div>
-        <div class="entry-title-large">${entry.title}</div>
-        ${photoHtml}
-        <div class="entry-body-text">${entry.body}</div>
-      </div>`;
-    }
-
+    <div class="page-section">thoughts</div>
+    <div class="entry-date-label">${entry.date}</div>
+    <div class="entry-title-large">${entry.title}</div>
+    <div class="entry-body-text">${entry.body}</div>
+  </div>`;
+}
     function photosPage(photoSlice, showLabel) {
       return `<div class="page-content">
         ${showLabel ? '<div class="page-section">photos</div>' : '<div class="page-section" style="opacity:0;pointer-events:none"> </div>'}
