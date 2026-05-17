@@ -209,7 +209,7 @@
     <img id="lightbox-img" src="" alt="" />
   </div>
 
-  <div class="closed-book" id="closed-book" onclick="openBook()" ontouchend="openBook()">
+<div class="closed-book" id="closed-book" id="closed-book">
     <div class="book-body">
       <div class="book-spine">
         <div class="spine-line"></div>
@@ -559,10 +559,11 @@
     }
 
     function openBook() {
-      document.getElementById('closed-book').style.display = 'none';
-      document.getElementById('open-book').classList.add('visible');
-      paint(0);
-    }
+      document.getElementById('closed-book').addEventListener('click', openBook);
+document.getElementById('closed-book').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  openBook();
+});
 
     document.getElementById('btn-prev').addEventListener('click', () => doFlip(-1));
     document.getElementById('btn-next').addEventListener('click', () => doFlip(1));
