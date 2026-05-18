@@ -424,9 +424,9 @@
         ${showLabel ? '<div class="page-section">photos</div>' : '<div class="page-section" style="opacity:0;pointer-events:none"> </div>'}
         <div class="photo-grid-mini">
           ${photoSlice.map(p => p
-            ? `<img src="${p.src}" alt="" data-action="lightbox" data-src="${p.src}" />`
-            : `<div class="ph">—</div>`
-          ).join('')}
+    ? `<img src="${p}" alt="" data-action="lightbox" data-src="${p}" />`
+    : `<div class="ph">—</div>`
+  ).join('')}
         </div>
       </div>`;
     }
