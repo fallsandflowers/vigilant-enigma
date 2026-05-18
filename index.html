@@ -157,7 +157,7 @@
 
     .photo-grid-mini { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.4rem; flex: 1; min-height: 0; }
     .photo-grid-mini .ph { background: var(--pale); display: flex; align-items: center; justify-content: center; font-family: 'Inconsolata', monospace; font-size: 0.45rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; min-height: 0; }
-    .photo-grid-mini img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%) contrast(1.05); cursor: pointer; transition: filter 0.3s ease; display: block; }
+    .photo-grid-mini img { width: 100%; height: 100%; object-fit: contain; background: var(--cream-dark); filter: grayscale(15%) contrast(1.05); cursor: pointer; transition: filter 0.3s ease; display: block; }
     .photo-grid-mini img:hover { filter: grayscale(0%) contrast(1.08); }
 
     .lines-page-content { position: relative; z-index: 2; padding: 2.5rem 2.2rem; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
